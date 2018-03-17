@@ -1,11 +1,11 @@
-all: ../rpitx ../pissb ../pisstv ../pifsq ../pifm ../piam ../pidcf77
+all: ../rpitx ../pissb ../pisstv ../pifsq ../pifm ../piam ../pidcf77 ../piopera
 
 #CFLAGS	= -Wall -g -O2 -D DIGITHIN
 CFLAGS	= -Wall -g -O2 -Wno-unused-variable 
 LDFLAGS	= -lm -lrt -lpthread 
 
 
-../rpitx: RpiGpio.c RpiTx.c  mailbox.c RpiDma.c raspberry_pi_revision.c
+../rpitx: RpiGpio.c RpiTx.c  mailbox.c RpiDma.c raspberry_pi_revision.c calibrationpi2.h calibrationpizero.h calibrationpi3.h
 		$(CC) $(CFLAGS) -o ../rpitx  RpiTx.c RpiGpio.c mailbox.c RpiDma.c raspberry_pi_revision.c $(LDFLAGS) 
 		
 CFLAGS_Pissb	= -Wall -g -O2 -Wno-unused-variable
@@ -38,6 +38,12 @@ CFLAGS_Pidcf77	= -Wall -g -O2 -Wno-unused-variable
 LDFLAGS_Pidcf77	= -lm -lrt -lpthread
 ../pidcf77 : ../dcf77/pidcf77.c 
 	$(CC) $(CFLAGS_Piam) -o ../pidcf77 ../dcf77/pidcf77.c  $(LDFLAGS_Piam) 
+
+CFLAGS_Piopera	= -g -O2 -Wno-unused-variable
+LDFLAGS_Piopera	= -lm 
+../piopera : ../opera/opera.c
+	$(CC) $(CFLAGS_Piopera) -o ../piopera ../opera/opera.c  $(LDFLAGS_Piopera) 
+
 clean:
 	
 	rm -f  ../rpitx ../pissb ../pisstv ../pifsq ../pifm ../piam ../pidcf77 RpiTx.o mailbox.o RpiGpio.o RpiDma.o
@@ -50,5 +56,6 @@ install: all
 	install -m 0755 ../pifsq /usr/bin
 	install -m 0755 ../rpitx /usr/bin
 	install -m 0755 ../pidcf77 /usr/bin
+	install -m 0755 ../piopera /usr/bin
 	cp dt-blob.bin /boot/
 	$(info !!! You should reboot if it is the first installation !!!)
