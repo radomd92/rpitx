@@ -8,19 +8,19 @@ sudo apt-get install -y imagemagick libfftw3-dev
 #For rtl-sdr use
 sudo apt-get install -y rtl-sdr buffer
 # We use CSDR as a dsp for analogs modes thanks to HA7ILM
-git clone https://github.com/F5OEO/csdr
+git clone https://github.com/radomd92/csdr
 cd csdr || exit
 make && sudo make install
 cd ../ || exit
 
 cd src || exit
-git clone https://github.com/F5OEO/librpitx
+git clone https://github.com/radomd92/librpitx
 cd librpitx/src || exit
 make && sudo make install
 cd ../../ || exit
 
 cd pift8
-git clone https://github.com/F5OEO/ft8_lib
+git clone https://github.com/radomd92/ft8_lib
 cd ft8_lib
 make && sudo make install
 cd ../
